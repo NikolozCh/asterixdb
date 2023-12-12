@@ -26,9 +26,13 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-            def mvn = tool 'Sonars';
-            withSonarQubeEnv() {
-                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Sonar-Java -Dsonar.projectName='Sonar-Java'"
+            steps {
+                script {
+                    def mvn = tool 'Sonars';
+                    withSonarQubeEnv() {
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Sonar-Java -Dsonar.projectName='Sonar-Java'"
+                    }
+                }
             }
         }
     }
